@@ -1,8 +1,8 @@
 {
-  "name": "ljcast",
-  "productName": "ljcast",
+  "name": "electron-auth-code-grant-flow-example",
+  "productName": "electron-auth-code-grant-flow-example",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Authorization code grant flow done in Electron w/ React, TypeScript, and third party module `client-oauth2`.",
   "main": ".webpack/main",
   "types": "./declarations.d.ts",
   "scripts": {
