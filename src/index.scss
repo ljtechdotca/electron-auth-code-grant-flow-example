@@ -12,23 +12,52 @@ body {
 
 #root {
   height: 100%;
+}
+
+form {
   display: grid;
-  grid-template-rows: 3rem 1fr 3rem;
-  header {
-    border-bottom: 1px solid #dddddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+label {
+  border: 1px dashed #aaa;
+  color: #aaa;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  display: grid;
+}
+
+input {
+  background-color: unset;
+  border: 1px solid transparent;
+  outline: unset;
+  padding-bottom: 0.25rem;
+  &:focus {
+    border-bottom: 1px solid dodgerblue;
   }
-  main {
-    background-image: url("https://i.kym-cdn.com/entries/icons/original/000/015/878/thatsnoneofmy.jpg");
-    background-size: cover;
-    background-color: #f8f8f8;
-  }
-  footer {
-    border-top: 1px solid #dddddd;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+}
+
+button {
+  cursor: pointer;
+  border: 1px solid #aaa;
+  border-radius: 0.25rem;
+  color: #aaa;
+  background-color: #fff;
+  padding: 0.5rem;
+}
+
+span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.status {
+  color: #aaa;
+  font-size: 0.75rem;
+  border: 1px dashed #aaa;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
 }

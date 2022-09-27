@@ -1,31 +1,35 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
+import { oAuthClient } from "./lib/OAuthClient";
 
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
-if (require("electron-squirrel-startup")) {
-  app.quit();
-}
+let mainWindow: BrowserWindow | null = null;
 
-const createWindow = (): void => {
-  const mainWindow = new BrowserWindow({
+function createWindow() {
+  mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      nodeIntegration: true,
     },
   });
-
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-
+  mainWindow.menuBarVisible = false;
   mainWindow.webContents.openDevTools();
-};
+}
+
+if (require("electron-squirrel-startup")) {
+  app.quit();
+}
 
 app.on("ready", createWindow);
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
+    mainWindow = null;
   }
 });
 
@@ -34,3 +38,24 @@ app.on("activate", () => {
     createWindow();
   }
 });
+
+ipcMain.handle("invoke-logout", () => {
+  console.log("Todo, logout function?");
+});
+
+ipcMain.on("send-login", (event, app: App) => {
+  oAuthClient.init(app, onSuccess, onError);
+  console.log("send-login", { mainWindow });
+});
+
+function onSuccess(token: Token) {
+  updateStore({ token, isLoggedIn: true });
+}
+
+function onError() {
+  updateStore({ error: "Internal server error." });
+}
+
+function updateStore(data: Partial<StoreProps>) {
+  mainWindow.webContents.send("on-store", data);
+}

@@ -24,7 +24,28 @@ module.exports = [
     },
   },
   {
+    test: /\.css$/,
+    use: ["style-loader", "css-loader"],
+  },
+  {
     test: /\.s[ac]ss$/i,
     use: ["style-loader", "css-loader", "sass-loader"],
+  },
+  {
+    test: /\.svg$/,
+    use: [
+      {
+        loader: require.resolve("@svgr/webpack"),
+        options: {
+          prettier: false,
+          svgo: false,
+          svgoConfig: {
+            plugins: [{ removeViewBox: false }],
+          },
+          titleProp: true,
+          ref: true,
+        },
+      },
+    ],
   },
 ];
