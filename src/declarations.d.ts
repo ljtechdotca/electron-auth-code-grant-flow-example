@@ -7,6 +7,7 @@ declare module "*.svg" {
 
 interface StoreProps {
   isLoggedIn: boolean;
+  isSubmitting: boolean;
   error: string | null;
   token: Token | null;
 }

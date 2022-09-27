@@ -59,7 +59,11 @@ export class OAuthClient {
     return options;
   }
 
-  async init(app: App, onSuccess: (auth: Token) => void, onError: () => void) {
+  async init(
+    app: App,
+    onSuccess: (auth: Token) => void,
+    onError: (message: string) => void
+  ) {
     const options = this._createOptions(app);
     const oAuth = new OpinionatedOAuth(options);
     const authUri = oAuth.code.getUri();
@@ -71,6 +75,7 @@ export class OAuthClient {
     setTimeout(() => {
       if (this._webServer.isRunning) {
         this._webServer.stop("OAuthClient has timed out!");
+        onError("OAuthClient has timed out!");
       }
     }, 10 * 1000);
   }
@@ -80,7 +85,7 @@ export class OAuthClient {
     oAuth: OpinionatedOAuth,
     uri: string,
     onSuccess: (token: Token) => void,
-    onError: () => void
+    onError: (error: string) => void
   ) {
     this._webServer.stop("OAuthClient is redirecting!");
     try {
@@ -97,8 +102,8 @@ export class OAuthClient {
       console.log("OAuthClient access granted!");
       onSuccess(token);
     } catch (error) {
-      console.error("OAuthClient access denied!", error);
-      onError();
+      console.error(error);
+      onError("OAuthClient access denied!");
     }
   }
 }

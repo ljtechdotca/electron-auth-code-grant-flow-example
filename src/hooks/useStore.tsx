@@ -11,6 +11,7 @@ import {
 
 const initialStore: StoreProps = {
   isLoggedIn: false,
+  isSubmitting: false,
   error: null,
   token: null,
 };
@@ -23,11 +24,15 @@ export const StoreContext = createContext<{
 export const useStore = () => {
   const { store, setStore } = useContext(StoreContext);
 
-  function onStoreEvent(_event: IpcRendererEvent, data: StoreProps) {
+  function updateStore(data: Partial<StoreProps>) {
     setStore((currentData) => ({ ...currentData, ...data }));
   }
 
-  return { store, setStore, onStoreEvent };
+  function onStoreEvent(_event: IpcRendererEvent, data: Partial<StoreProps>) {
+    updateStore(data);
+  }
+
+  return { store, setStore, updateStore, onStoreEvent };
 };
 
 export const StoreProvider: FC<PropsWithChildren> = ({ children }) => {

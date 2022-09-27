@@ -6,6 +6,12 @@
   padding: 0;
 }
 
+:root {
+  --yellow: #eeca71;
+  --green: #51f880;
+  --red: #f85151;
+}
+
 body {
   height: 100vh;
 }
@@ -33,9 +39,8 @@ input {
   background-color: unset;
   border: 1px solid transparent;
   outline: unset;
-  padding-bottom: 0.25rem;
   &:focus {
-    border-bottom: 1px solid dodgerblue;
+    border-bottom: 1px solid rgba(31, 143, 255, 0.5);
   }
 }
 
@@ -52,6 +57,13 @@ span {
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+pre {
+  padding: 1rem;
+  background-color: #000;
+  color: #fff;
+  margin: 1rem;
 }
 
 .status {

@@ -49,11 +49,11 @@ ipcMain.on("send-login", (event, app: App) => {
 });
 
 function onSuccess(token: Token) {
-  updateStore({ token, isLoggedIn: true });
+  updateStore({ token, isLoggedIn: true, isSubmitting: false });
 }
 
-function onError() {
-  updateStore({ error: "Internal server error." });
+function onError(error: string) {
+  updateStore({ error, isSubmitting: false });
 }
 
 function updateStore(data: Partial<StoreProps>) {
