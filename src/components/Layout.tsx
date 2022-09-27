@@ -23,9 +23,9 @@ export const Layout: FC = () => {
 
   return (
     <div className={styles.root}>
-      <pre>
+      {/* <pre>
         <code>{JSON.stringify(store, null, 4)}</code>
-      </pre>
+      </pre> */}
       <form onSubmit={handleSubmit(onTwitchAppSubmit)}>
         <div className="status">
           {store.isSubmitting ? (

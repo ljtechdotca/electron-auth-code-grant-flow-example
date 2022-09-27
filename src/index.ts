@@ -8,8 +8,8 @@ let mainWindow: BrowserWindow | null = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
-    height: 600,
-    width: 800,
+    height: 320,
+    width: 320,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       nodeIntegration: true,
@@ -17,7 +17,7 @@ function createWindow() {
   });
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
   mainWindow.menuBarVisible = false;
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 }
 
 if (require("electron-squirrel-startup")) {
@@ -45,10 +45,10 @@ ipcMain.handle("invoke-logout", () => {
 
 ipcMain.on("send-login", (event, app: App) => {
   oAuthClient.init(app, onSuccess, onError);
-  console.log("send-login", { mainWindow });
 });
 
 function onSuccess(token: Token) {
+  console.log("Token retrieved!", { token });
   updateStore({ token, isLoggedIn: true, isSubmitting: false });
 }
 

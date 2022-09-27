@@ -77,7 +77,7 @@ export class OAuthClient {
         this._webServer.stop("OAuthClient has timed out!");
         onError("OAuthClient has timed out!");
       }
-    }, 10 * 1000);
+    }, 4 * 1000);
   }
 
   async handleRedirect(
@@ -87,7 +87,9 @@ export class OAuthClient {
     onSuccess: (token: Token) => void,
     onError: (error: string) => void
   ) {
-    this._webServer.stop("OAuthClient is redirecting!");
+    if (this._webServer.isRunning) {
+      this._webServer.stop("OAuthClient is redirecting!");
+    }
     try {
       const {
         data: { access_token, refresh_token, expires_in, obtainment_timestamp },
