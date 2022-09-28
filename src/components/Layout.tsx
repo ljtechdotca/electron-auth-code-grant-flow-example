@@ -60,7 +60,7 @@ export const Layout: FC = () => {
             <TagIcon width={14} height={14} /> Client ID
           </span>
           <input
-            defaultValue="14gqoyxb2pz8mt4dypc23g5qijnac6"
+            defaultValue="defaultValue"
             id="clientId"
             type="text"
             {...register("clientId", { required: true })}
@@ -72,7 +72,7 @@ export const Layout: FC = () => {
             <KeyIcon width={14} height={14} /> Client Secret
           </span>
           <input
-            defaultValue="22190oxbc7rll7lz8bgk1eowh5ul56"
+            defaultValue="defaultValue"
             id="clientSecret"
             type="password"
             {...register("clientSecret", { required: true })}
